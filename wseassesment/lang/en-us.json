@@ -1,0 +1,11 @@
+{
+    "upper_nav": {
+        "placeholder": "Search in WeNaturalist"
+    },
+
+    "drawer": {
+        "user_name": "Username",
+        "view_profile": "View Profile ➜",
+        "logout": "Log Out"
+    }
+}
