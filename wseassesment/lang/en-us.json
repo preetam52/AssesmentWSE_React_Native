@@ -7,5 +7,28 @@
         "user_name": "Username",
         "view_profile": "View Profile ➜",
         "logout": "Log Out"
+    },
+
+    "invitations": {
+        "invitations": "Invitations",
+        "youhave": "You have",
+        "show": "Show",
+        "hide": "Hide",
+        "check": "Check them out"
+    },
+
+    "suggetions": {
+        "youmayknow": "You may know",
+        "description": "Get to know Incredible people!",
+        "showall": "Show All ➜"
+    },
+
+    "cconnects": {
+        "yourconnects": "Your Connects",
+        "sortby": "Sort by:",
+        "recent": "Recent",
+        "connects": "Connects",
+        "following": "Following",
+        "recruiters": "Recruiters"
     }
 }

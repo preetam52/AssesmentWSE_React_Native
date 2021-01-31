@@ -1,4 +1,4 @@
-import en_us from "../../lang/en-us.json"
+import en_us from "../../../lang/en-us.json"
 
 export const drawerContent = {
 

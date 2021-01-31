@@ -13,6 +13,14 @@ export const styles = StyleSheet.create({
         flex: 1
     },
 
+    activeBtn: {
+        borderTopColor: variables.active,
+        borderTopWidth: 5
+    },
+    inactiveBtn: {
+
+    },
+
     btnTouch: {
         flex: 1, 
         //backgroundColor: "red",

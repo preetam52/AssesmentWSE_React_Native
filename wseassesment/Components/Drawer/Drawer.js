@@ -1,86 +1,88 @@
 import React, { Component } from 'react'
-import { Text, View, DrawerLayoutAndroid, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { Text, View, DrawerLayoutAndroid, TouchableOpacity, Image, ScrollView, Modal } from 'react-native'
 import { styles } from "../Drawer/styles"
-import Icon from 'react-native-vector-icons/dist/Ionicons'
+
 import { variables, globalStyles } from "../../globalStyles"
 import UpperNav from '../UpperNav/UpperNav'
 import LowerNav from '../LowerNav/LowerNav'
-import userImg from "../../assets/User-2_2x.png"
-import en_us from "../../lang/en-us.json"
 
-import { drawerContent } from "./config"
+
+
+import DrawerContainer from './DrawerContainer/DrawerContainer'
+import LeftDrawer from './LeftDrawer/LeftDrawer'
+import PeopleModal from '../People/PeopleModal/PeopleModal'
 
 export default class Drawer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeNav: 3,
+            isOpen: false
+        }
+        this.drawer = React.createRef()
+    }
+
+    
+
+    activeNav = (idx) => {
+        this.setState({
+            activeNav: idx
+        })
+    }
+
+    drawerHandle = (type) => {
+        this.setState({
+            drawerType: type
+        }, () => {
+            this.drawer.current.openDrawer()
+        })
+    }
 
 
     render() {
 
-        const navigationView = (<ScrollView contentContainerStyle={{ backgroundColor: variables.primary, height: variables.height }}>
+        const leftNavigationView = (<ScrollView  contentContainerStyle={{ backgroundColor: variables.primary, height: variables.height }}>
 
-            <View style={[styles.profileAlign]}>
-                <View style={[globalStyles.row, styles.profile]}>
-                    <Image style={styles.userImg} source={userImg} />
-                    <View>
-                        <Text style={styles.usernameTxt}>{en_us.drawer.user_name}</Text>
-                        <TouchableOpacity>
-                        <Text style={styles.viewProfileTxt}>{en_us.drawer.view_profile}</Text>
-                        </TouchableOpacity>
-                        
-                    </View>
-
-                </View>
+            <LeftDrawer />
 
 
-            </View>
+        </ScrollView>)
 
-            <View style={styles.contentListAlign}>
-                {drawerContent.upperBlock.map((e, i) => {
-                    return (<View style={{}}>
-                        <TouchableOpacity style={[styles.drawerContent, globalStyles.row]} key={i}>
-                            <Icon name={e.icon} size={25} color={variables.snow} />
-                            <Text style={styles.upperBlockTxt}>{e.title.toUpperCase()}</Text>
-                        </TouchableOpacity>
-                    </View>)
-                })}
-            </View>
+        const rightNavigationView = (<ScrollView contentContainerStyle={{ backgroundColor: variables.primary, height: variables.height }}>
 
-           
+            <LeftDrawer />
 
-            <View style={[styles.contentListAlign, styles.lowerBlock]}>
-                {drawerContent.lowerBlock.map((e, i) => {
-                    return (<View style={{}}>
-                        <TouchableOpacity style={[styles.drawerContent, globalStyles.row]} key={i}>
-                            <Icon name={e.icon} size={25} color={variables.snow} />
-                            <Text style={styles.upperBlockTxt}>{e.title}</Text>
-                        </TouchableOpacity>
-                    </View>)
-                })}
-            </View>
 
-            <View style={styles.logout}>
-                <TouchableOpacity>
-                    <Text style={styles.logoutTxt}>{en_us.drawer.logout}</Text>
-                </TouchableOpacity>
-            </View>
         </ScrollView>)
         return (
+            <>
 
             <DrawerLayoutAndroid drawerWidth={variables.width / 1.33}
-                ref={'DRAWER_REF'}
-                drawerPosition={'left'}
-                renderNavigationView={() => navigationView}
+                ref={this.drawer}
+                drawerPosition={this.state.drawerType}
+                renderNavigationView={() => leftNavigationView }
             >
-                <ScrollView contentContainerStyle={globalStyles.container}>
-                    <UpperNav pressed={() => this.refs['DRAWER_REF'].openDrawer()} />
-                </ScrollView>
+                <>
+                <View >
+                   
 
-                <View style={styles.lowerNav}>
-                    <LowerNav />
+                    <DrawerContainer drawerHandle={(e) => this.drawerHandle(e)} openModal={() => this.setState({isOpen: true})} activeNav={this.state.activeNav} />
+
                 </View>
 
+                <View style={styles.lowerNav}>
+                    <LowerNav activeNav={(idx) => this.activeNav(idx)} />
+                </View>
 
+               
+</>
 
             </DrawerLayoutAndroid>
+
+            <PeopleModal isOpen={this.state.isOpen} closeModal={() => this.setState({isOpen: false})}/>
+
+
+            </>
 
         )
     }

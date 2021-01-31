@@ -19,10 +19,11 @@ export const styles = StyleSheet.create({
 
    userBtn: {
        height: 25,
-       width:25,
+       width:35,
        marginLeft: 5,
        marginRight: 15,
        resizeMode: "contain",
+       
        //backgroundColor:"yellow"
    },
 
@@ -43,7 +44,7 @@ export const styles = StyleSheet.create({
        alignItems: "center",
        justifyContent: "center",
        height: "100%",
-       //backgroundColor: variables.secondary
+       backgroundColor: variables.secondary
    }
     
 
